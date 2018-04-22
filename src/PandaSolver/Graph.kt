@@ -25,18 +25,22 @@ class Graph(private val numberOfNodes: Int) {
     val isHamiltonian: Boolean
         get() {
             if (numberOfNodes < 3) {
+
                 return false
             }
 
 
             var i = 0
 
-            val tempNodes=adjacentNodes.filterNotNull();
+            val tempNodes = adjacentNodes.filterNotNull()
 
             while (i < tempNodes.size) {
 
-                    if(   tempNodes[i].size < numberOfNodes / 2)
+                if (tempNodes[i].size < numberOfNodes / 2) {
+
                     return false
+                }
+
                 ++i
             }
 
