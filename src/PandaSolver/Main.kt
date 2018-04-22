@@ -1,6 +1,9 @@
 package PandaSolver
 
-import java.io.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.IOException
 import java.nio.charset.Charset
 
 /**
@@ -8,7 +11,6 @@ import java.nio.charset.Charset
  * It reads from the pandaFile.txt, and decides if a Hamilton path exists within the PandaSolver
  */
 fun  main(args: Array<String>) {
-
     val pandaGraph: Graph?
     var data=ByteArray(10)
     try {
@@ -24,7 +26,6 @@ fun  main(args: Array<String>) {
         println("Unexpected IOException!\n" +
                 " Terminating..")
     }
-
     pandaGraph= createGraphfromFile(data)
 
     if (pandaGraph?.isHamiltonian!=null ) {
@@ -34,7 +35,6 @@ fun  main(args: Array<String>) {
             println("IMPOSSIBLE")
     }
 }
-
 /**
  * Function to populate the PandaSolver from the file given by the user in the "fileName" value
  */
@@ -52,7 +52,6 @@ fun createGraphfromFile(data:ByteArray): Graph?{
     }
     return pandaGraph
 }
-
 /**
  * Populates the PandaSolver with elements from the read file.
  */
@@ -60,14 +59,12 @@ fun populateGraph(lines:List<String>, pandaGraph: Graph, numberOfPandas:Int, lin
     var actualCounter=lineCounter
     for (j in 0 until numberOfPandas) {
         val pandaInfo = lines.elementAt(actualCounter++).split(" ".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-
         val numofPandasLiked = Integer.parseInt(pandaInfo[0])
         for (k in 1..numofPandasLiked) {
             if (pandaInfo[k] != "") {
                 val indexofPanda = Integer.parseInt(pandaInfo[k])
                 println("Index of Panda liked by + " + (j + 1) + ". Panda: " + indexofPanda)
                 pandaGraph.addEdge(j, indexofPanda - 1)
-
             }
         }
     }
