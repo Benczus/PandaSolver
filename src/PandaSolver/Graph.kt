@@ -45,5 +45,23 @@ class Graph(private val numberOfNodes: Int) {
     override fun toString(): String {
         return "Graph(numberOfNodes=$numberOfNodes, adjacentNodes=${Arrays.toString(adjacentNodes)})"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Graph
+
+        if (numberOfNodes != other.numberOfNodes) return false
+        if (!Arrays.equals(adjacentNodes, other.adjacentNodes)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = numberOfNodes
+        result = 31 * result + Arrays.hashCode(adjacentNodes)
+        return result
+    }
 }
 
